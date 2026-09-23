@@ -8,6 +8,23 @@ public class Room {
     private Room south;
     private Room east;
     private Room west;
+    private boolean triedNorth = false;
+    private boolean triedSouth = false;
+    private boolean triedEast = false;
+    private boolean triedWest = false;
+
+    public void tryNorth() {
+        triedNorth = true;
+    }
+    public void trySouth() {
+        triedSouth = true;
+    }
+    public void tryEast() {
+        triedEast = true;
+    }
+    public void tryWest() {
+        triedWest = true;
+    }
 
     public Room(String name, String description) {
         this.name = name;
@@ -46,5 +63,9 @@ public class Room {
     }
     public void setWest(Room west) {
         this.west = west;
+    }
+    public boolean allDirectionsTried() {
+        return triedNorth && triedSouth
+                && triedEast && triedWest;
     }
 }
