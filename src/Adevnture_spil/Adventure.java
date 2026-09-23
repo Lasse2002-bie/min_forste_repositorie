@@ -129,15 +129,16 @@ public class Adventure {
                     }
 
                 } else if (command.equals("help")) {
-                    System.out.println("Commands: go north, go south, go east, go west, look, help");
+                    System.out.println("Commands: go north, go south, go east, go west, look, help, exit");
+
+                } else if (command.equals("exit")) {
+                    System.out.println("Quitter");
+                    break;
 
                 } else {
                     System.out.println("I don't understand that command.");
                 }
-                if (command.equals("exit")) {
-                    break;
                 }
             }
         }
     }
-}
