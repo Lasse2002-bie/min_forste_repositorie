@@ -14,7 +14,7 @@ public class User_Interface {
         System.out.println("The last thing you remember was going ham on the floor at the annual Dansevands event, and some guy handing you his drink");
         scanner.nextLine();
         System.out.println("The room you wake up in feels cold and empty, with nothing but two doors");
-        System.out.println("As you look down you notice all your clothes is missing");
+        System.out.println("As you look down you notice all your clothes are missing");
         scanner.nextLine();
         System.out.println("Find your missing clothes");
         System.out.println("Type 'help' to see commands");
@@ -41,10 +41,14 @@ public class User_Interface {
                 System.out.println("Quitter");
                 break;
 
-            } else if (command.equals("Dansevand")) {
+            } else if (command.equals("dansevand")) {
                 System.out.println("Dance break!");
 
-            } else if (command.equals("WASDdownupdownup")) {
+            } else if (command.equals("jump")) {
+                System.out.println("You jumped too high, hit your head on the ceiling and died");
+                break;
+            }
+            else if (command.equals("WASDdownupdownup")) {
                 System.out.println("You have completed the game!");
                 break;
 
