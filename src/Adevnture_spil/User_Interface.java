@@ -26,7 +26,7 @@ public class User_Interface {
             if (command.startsWith("go ")) {
                 String direction = command.substring(3);
                 if (adventure.go(direction)) {
-                    System.out.println(adventure.look());
+                    System.out.println("You are in: " + adventure.look());
                 } else {
                     System.out.println("You cannot go this way");
                 }
@@ -39,6 +39,13 @@ public class User_Interface {
 
             } else if (command.equals("exit")) {
                 System.out.println("Quitter");
+                break;
+
+            } else if (command.equals("Dansevand")) {
+                System.out.println("Dance break!");
+
+            } else if (command.equals("WASDdownupdownup")) {
+                System.out.println("You have completed the game!");
                 break;
 
             } else {
