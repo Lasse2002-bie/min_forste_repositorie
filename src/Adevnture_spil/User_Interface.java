@@ -47,8 +47,7 @@ public class User_Interface {
             } else if (command.equals("jump")) {
                 System.out.println("You jumped too high, hit your head on the ceiling and died");
                 break;
-            }
-            else if (command.equals("WASDdownupdownup")) {
+            } else if (command.equals("WASDdownupdownup")) {
                 System.out.println("You have completed the game!");
                 break;
 

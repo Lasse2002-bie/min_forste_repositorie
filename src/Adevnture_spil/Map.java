@@ -8,8 +8,7 @@ public class Map {
         buildMap();
     }
 
-    private void buildMap()
-    {
+    private void buildMap() {
         Room room1 = new Room("Room1", "A cold and empty room with nothing but two doors");
         Room room2 = new Room("Room2", "A room with graffiti all over the walls, with big arrows pointing straight ahead to an old wooden door painted all red");
         Room room3 = new Room("Room3", "In the middle of the room sits a beautiful dining table with room for one. The candles on the table seems to be out but theres still smoke coming from them. Has someone recently been here?");
@@ -51,6 +50,7 @@ public class Map {
         startRoom = room1;
 
     }
+
     public Room getStartRoom() {
         return startRoom;
     }

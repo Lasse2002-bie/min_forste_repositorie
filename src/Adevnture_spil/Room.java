@@ -19,22 +19,44 @@ public class Room {
         this.description = description;
     }
 
-    public Room getNorth() { return north; }
-    public Room getSouth() { return south; }
-    public Room getEast() { return east; }
-    public Room getWest() { return west; }
+    public Room getNorth() {
+        return north;
+    }
 
-    public void setNorth(Room north) { this.north = north; }
-    public void setSouth(Room south) { this.south = south; }
-    public void setEast(Room east) { this.east = east; }
-    public void setWest(Room west) { this.west = west; }
+    public Room getSouth() {
+        return south;
+    }
+
+    public Room getEast() {
+        return east;
+    }
+
+    public Room getWest() {
+        return west;
+    }
+
+    public void setNorth(Room north) {
+        this.north = north;
+    }
+
+    public void setSouth(Room south) {
+        this.south = south;
+    }
+
+    public void setEast(Room east) {
+        this.east = east;
+    }
+
+    public void setWest(Room west) {
+        this.west = west;
+    }
 
     public void markTried(String direction) {
         switch (direction) {
             case "north" -> triedNorth = true;
             case "south" -> triedSouth = true;
-            case "east"  -> triedEast = true;
-            case "west"  -> triedWest = true;
+            case "east" -> triedEast = true;
+            case "west" -> triedWest = true;
         }
     }
 
@@ -48,8 +70,8 @@ public class Room {
             text += "\nThere are doors to the:";
             if (north != null) text += " North";
             if (south != null) text += " South";
-            if (east != null)  text += " East";
-            if (west != null)  text += " West";
+            if (east != null) text += " East";
+            if (west != null) text += " West";
         }
         return text;
     }

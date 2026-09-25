@@ -17,8 +17,8 @@ public class Player {
         Room desiredRoom = switch (direction) {
             case "north" -> currentRoom.getNorth();
             case "south" -> currentRoom.getSouth();
-            case "east"  -> currentRoom.getEast();
-            case "west"  -> currentRoom.getWest();
+            case "east" -> currentRoom.getEast();
+            case "west" -> currentRoom.getWest();
             default -> null;
         };
 

@@ -5,7 +5,7 @@ public class Adventure {
     private Map map;
 
     public Adventure() {
-        map = new Map();
+        map =  new Map();
         player = new Player(map.getStartRoom());
     }
 
