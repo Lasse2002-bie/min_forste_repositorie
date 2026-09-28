@@ -1,8 +1,10 @@
 package Adevnture_spil;
+import java.util.ArrayList;
 
 public class Room {
     private String name;
     private String description;
+    private ArrayList<Item> items;
 
     private Room north;
     private Room south;
@@ -14,9 +16,11 @@ public class Room {
     private boolean triedEast = false;
     private boolean triedWest = false;
 
+
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+        items = new ArrayList<>();
     }
 
     public Room getNorth() {
@@ -73,6 +77,20 @@ public class Room {
             if (east != null) text += " East";
             if (west != null) text += " West";
         }
+        if (!items.isEmpty()) {
+            text += "\nItems:";
+
+            for (Item item : items) {
+                text += "\n- " + item.getLongName();
+            }
+        }
         return text;
     }
-}
+
+        public void addItem(Item item) {
+            items.add(item);
+        }
+        public ArrayList<Item> getItems() {
+            return items;
+        }
+    }

@@ -19,6 +19,13 @@ public class Map {
         Room room8 = new Room("Room8", "A room filled with shelves. Upon them are hundreds of jars covered in a thick layer of dust. It is impossible to see what they contain.");
         Room room9 = new Room("Room9", "A storage room with rows of boxes. All labeled with a name, upon inspecting them, one name looks kinda like yours. You should probably look inside.");
 
+        //Items:
+        Item lamp = new Item("lamp", "A shiny brass lamp");
+
+
+        room1.addItem(lamp);
+
+
         room1.setEast(room2);
         room1.setSouth(room4);
 
@@ -50,6 +57,8 @@ public class Map {
         startRoom = room1;
 
     }
+
+
 
     public Room getStartRoom() {
         return startRoom;
