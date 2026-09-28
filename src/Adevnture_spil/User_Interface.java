@@ -50,8 +50,22 @@ public class User_Interface {
             } else if (command.equals("WASDdownupdownup")) {
                 System.out.println("You have completed the game!");
                 break;
+            }
+                else if (command.equals("inventory")) {
+                    if (adventure.getInventory().isEmpty()) {
+                        System.out.println("your inventory is empty");
+                    }
+                    else {
+                        {
+                            System.out.println("inventory");
+                        }
+                        for (Item item : adventure.getInventory()) {
+                            System.out.println(": " + item.getLongName());
+                        }
+                    }
+                }
 
-            } else {
+            else {
                 System.out.println("I don't understand that command.");
             }
         }

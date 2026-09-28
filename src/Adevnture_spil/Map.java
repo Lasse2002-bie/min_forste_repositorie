@@ -8,6 +8,7 @@ public class Map {
         buildMap();
     }
 
+        //Eksisterende rooms
     private void buildMap() {
         Room room1 = new Room("Room1", "A cold and empty room with nothing but two doors");
         Room room2 = new Room("Room2", "A room with graffiti all over the walls, with big arrows pointing straight ahead to an old wooden door painted all red");
@@ -21,11 +22,29 @@ public class Map {
 
         //Items:
         Item lamp = new Item("lamp", "A shiny brass lamp");
+        Item goldCoin = new Item("spray can", "A spray can filled with red graffiti");
+        Item butterKnife = new Item("knife", "A sharp silver knife");
+        Item creepyDoll = new Item("doll", "An ancient creepy doll");
+        Item lawnShear = new Item("shear", "A garden shear with three sharp blades");
+        Item elevatorKey = new Item("key", "A key that seems to be for some sort of elevator");
+        Item mysteryJar = new Item("jar", "A jar with a strange form of liquid");
+        Item playerClothes = new Item ("clothes", "A bundle of clothes that u wore when you got drugges");
 
 
+        //Items lokation:
         room1.addItem(lamp);
+        room2.addItem(goldCoin);
+        room3.addItem(butterKnife);
+        room4.addItem(creepyDoll);
+        room5.addItem(lawnShear);
+        room7.addItem(elevatorKey);
+        room8.addItem(mysteryJar);
+        room9.addItem(playerClothes);
 
 
+
+
+        //Rooms forbindelser
         room1.setEast(room2);
         room1.setSouth(room4);
 

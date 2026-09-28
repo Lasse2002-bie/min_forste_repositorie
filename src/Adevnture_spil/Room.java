@@ -93,4 +93,12 @@ public class Room {
         public ArrayList<Item> getItems() {
             return items;
         }
+        public Item findItem(String itemName) {
+        for (Item item : items) {
+            if(item.getShortName().equals(itemName)) {
+                return item;
+            }
+        }
+        return null;
+        }
     }

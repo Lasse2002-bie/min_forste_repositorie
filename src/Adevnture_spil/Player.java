@@ -1,16 +1,29 @@
 package Adevnture_spil;
+import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom;
+    private ArrayList<Item> inventory;
 
     public Player(Room startRoom) {
         currentRoom = startRoom;
+        inventory = new ArrayList<>();
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+    public boolean removeItem (Item item) {
+        return inventory.remove(item);
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
-
     public boolean move(String direction) {
         currentRoom.markTried(direction);
 
@@ -28,4 +41,5 @@ public class Player {
         }
         return false;
     }
+
 }
