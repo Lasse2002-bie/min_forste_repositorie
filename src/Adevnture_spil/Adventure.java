@@ -21,4 +21,10 @@ public class Adventure {
     public ArrayList<Item> getInventory() {
         return player.getInventory();
     }
+    public boolean takeItem(String itemName) {
+        return player.takeItem(itemName);
+    }
+    public boolean dropItem(String itemName) {
+        return player.dropItem(itemName);
+    }
 }

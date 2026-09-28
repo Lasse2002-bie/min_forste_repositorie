@@ -20,7 +20,34 @@ public class Player {
     public boolean removeItem (Item item) {
         return inventory.remove(item);
     }
+    public boolean takeItem(String itemName) {
+        Item item = currentRoom.findItem(itemName);
+        if (item != null) {
+            currentRoom.removeItem(item);
+            inventory.add(item);
+            return true;
+        }
+        return false;
+    }
+    public Item findInventoryItem(String itemName) {
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+    public boolean dropItem(String itemName) {
+        Item item = findInventoryItem(itemName);
 
+        if (item != null) {
+            inventory.remove(item);
+            currentRoom.addItem(item);
+            return true;
+        }
+
+        return false;
+    }
     public Room getCurrentRoom() {
         return currentRoom;
     }

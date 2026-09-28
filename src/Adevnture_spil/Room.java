@@ -86,13 +86,15 @@ public class Room {
         }
         return text;
     }
-
-        public void addItem(Item item) {
+    public void addItem(Item item) {
             items.add(item);
         }
         public ArrayList<Item> getItems() {
             return items;
         }
+    public boolean removeItem(Item item) {
+        return items.remove(item);
+    }
         public Item findItem(String itemName) {
         for (Item item : items) {
             if(item.getShortName().equals(itemName)) {
