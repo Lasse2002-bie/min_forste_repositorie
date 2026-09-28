@@ -6,6 +6,7 @@ public class User_Interface {
     private Scanner scanner = new Scanner(System.in);
     private Adventure adventure = new Adventure();
 
+    //Lore
     public void start() {
         System.out.println("Welcome to Gustav, Marcus & Lasses incredible adventure game!!");
         scanner.nextLine();
@@ -19,12 +20,14 @@ public class User_Interface {
         System.out.println("Find your missing clothes");
         System.out.println("Type 'help' to see commands");
 
+        //Fungerende kommandoer
         while (true) {
             System.out.print("> ");
             String command = scanner.nextLine();
 
             if (command.startsWith("go ")) {
                 String direction = command.substring(3);
+
                 if (adventure.go(direction)) {
                     System.out.println("You are in: " + adventure.look());
                 } else {
@@ -33,6 +36,33 @@ public class User_Interface {
 
             } else if (command.equals("look")) {
                 System.out.println(adventure.look());
+            } else if (command.equals("inventory")) {
+
+                if (adventure.getInventory().isEmpty()) {
+                    System.out.println("Your inventory is empty");
+                } else {
+                    System.out.println("Inventory:");
+
+                    for (Item item : adventure.getInventory()) {
+                        System.out.println("- " + item.getLongName());
+                    }
+                }
+            }else if (command.startsWith("take ")) {
+                    String itemName = command.substring(5);
+
+                    if (adventure.takeItem(itemName)) {
+                        System.out.println("You picked up " + itemName);
+                    } else {
+                        System.out.println("There is no " + itemName + " here");
+                    }
+            } else if (command.startsWith("drop ")) {
+                String itemName = command.substring(5);
+
+                if (adventure.dropItem(itemName)) {
+                    System.out.println("You dropped " + itemName);
+                } else {
+                    System.out.println("There is no " + itemName + " to drop");
+                }
 
             } else if (command.equals("help")) {
                 System.out.println("Commands: go north, go south, go east, go west, look, help, exit");
@@ -50,36 +80,11 @@ public class User_Interface {
             } else if (command.equals("WASDdownupdownup")) {
                 System.out.println("You have completed the game!");
                 break;
-            } else if (command.equals("inventory")) {
-                if (adventure.getInventory().isEmpty()) {
-                    System.out.println("your inventory is empty");
-                } else {
-                    {
-                        System.out.println("inventory");
-                    }
-                    for (Item item : adventure.getInventory()) {
-                        System.out.println(": " + item.getLongName());
-                    }
-                }
+
             } else {
                 System.out.println("I don't understand that command.");
             }
-        if (command.startsWith("take ")) {
-                String itemName = command.substring(5);
-                if (adventure.takeItem(itemName)) {
-                    System.out.println("You picked up " + itemName);
-                } else {
-                    System.out.println("There is no " + itemName + " here");
-                }
-            }
-        if (command.startsWith("drop ")) {
-            String itemName = command.substring(5);
-            if (adventure.dropItem(itemName)) {
-                System.out.println("You dropped " + itemName);
-            } else {
-                System.out.println("There is no " + itemName + " to drop");
-            }
-        }
+
         }
     }
 }

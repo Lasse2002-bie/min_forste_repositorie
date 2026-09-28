@@ -70,6 +70,7 @@ public class Room {
 
     public String describe() {
         String text = name + ": " + description;
+
         if (allDirectionsTried()) {
             text += "\nThere are doors to the:";
             if (north != null) text += " North";
@@ -77,6 +78,7 @@ public class Room {
             if (east != null) text += " East";
             if (west != null) text += " West";
         }
+
         if (!items.isEmpty()) {
             text += "\nItems:";
 
@@ -97,7 +99,7 @@ public class Room {
     }
         public Item findItem(String itemName) {
         for (Item item : items) {
-            if(item.getShortName().equals(itemName)) {
+            if(item.getShortName().equalsIgnoreCase(itemName)) {
                 return item;
             }
         }
