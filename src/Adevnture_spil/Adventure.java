@@ -36,4 +36,7 @@ public class Adventure {
     public boolean dropItem(String itemName) {
         return player.dropItem(itemName);
     }
+    public int getHealth() {
+        return player.getHealth();
+    }
 }

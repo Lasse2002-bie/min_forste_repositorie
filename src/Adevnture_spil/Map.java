@@ -48,6 +48,9 @@ public class Map {
         Item crowbar = new Item("crowbar", "A heavy metal crowbar covered in rust");
         Item note = new Item("note", "A handwritten note with a strange warning");
 
+        Food bread = new Food("bread", "a loaf of stale bread", 10);
+        Food mushroom = new Food("mushroom", "a pale glowing mushroom", -50);
+
 
         //Items lokation:
         room1.addItem(lamp);
@@ -64,6 +67,10 @@ public class Map {
         room15.addItem(crowbar);
         room16.addItem(note);
         room17.addItem(bandage);
+
+        //Food lokation:
+        room1.addItem(bread);
+        room5.addItem(mushroom);
 
 
 

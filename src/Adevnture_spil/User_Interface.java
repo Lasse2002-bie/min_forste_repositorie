@@ -72,6 +72,20 @@ public class User_Interface {
             } else if (command.equals("WASDdownupdownup")) {
                 System.out.println("You have completed the game!");
                 break;
+            }
+            else if (command.equals("health")) {
+                int health = adventure.getHealth();
+                if (health >= 100) {
+                    System.out.println("health " + health + "- you are in perfect health");
+                } else if (health >= 50) {
+                    System.out.println("health " + health + "- you are in  good health, but avoid fighting right now");
+                } else if (health >= 25) {
+                    System.out.println("health " + health + "- you are wounded - find something healthy to eat");
+                } else if (health >= 1) {
+                    System.out.println("health " + health + "- you are barely alive");
+                } else {
+                    System.out.println("health " + health + "- you should be dead");
+                }
 
             } else {
                 System.out.println("I don't understand that command.");
