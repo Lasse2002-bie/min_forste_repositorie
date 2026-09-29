@@ -18,9 +18,18 @@ public class Adventure {
     public String look() {
         return player.getCurrentRoom().describe();
     }
-    public ArrayList<Item> getInventory() {
-        return player.getInventory();
+    public String inventory() {
+        if (player.getInventory().isEmpty()) {
+            return "Your inventory is empty";
+        }
+        String text = "Inventory:";
+
+        for (Item item : player.getInventory()) {
+            text += "\n- " + item.getLongName();
+        }
+        return text;
     }
+
     public boolean takeItem(String itemName) {
         return player.takeItem(itemName);
     }

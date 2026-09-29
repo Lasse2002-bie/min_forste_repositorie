@@ -3,9 +3,13 @@ package Adevnture_spil;
 public class Map {
 
     private Room startRoom;
-
+// opretter mappen
     public Map() {
         buildMap();
+    }
+    // returnere start-rum
+    public Room getStartRoom() {
+        return startRoom;
     }
 
         //Eksisterende rooms
@@ -28,7 +32,7 @@ public class Map {
         Room room16 = new Room("Room16", "An abandoned office with papers scattered across the floor");
         Room room17 = new Room("Room17", "A silent room with a locked wooden chest in the middle");
 
-        //Items:
+        //Eksisterende Items:
         Item lamp = new Item("lamp", "A shiny brass lamp");
         Item sprayCan = new Item("spraycan", "A spray can filled with red graffiti");
         Item butterKnife = new Item("knife", "A sharp silver knife");
@@ -120,8 +124,4 @@ public class Map {
     }
 
 
-
-    public Room getStartRoom() {
-        return startRoom;
-    }
 }

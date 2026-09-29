@@ -37,16 +37,8 @@ public class User_Interface {
             } else if (command.equals("look")) {
                 System.out.println(adventure.look());
             } else if (command.equals("inventory")) {
+                System.out.println(adventure.inventory());
 
-                if (adventure.getInventory().isEmpty()) {
-                    System.out.println("Your inventory is empty");
-                } else {
-                    System.out.println("Inventory:");
-
-                    for (Item item : adventure.getInventory()) {
-                        System.out.println("- " + item.getLongName());
-                    }
-                }
             }else if (command.startsWith("take ")) {
                     String itemName = command.substring(5);
 
@@ -65,7 +57,7 @@ public class User_Interface {
                 }
 
             } else if (command.equals("help")) {
-                System.out.println("Commands: go north, go south, go east, go west, look, help, exit");
+                System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump");
 
             } else if (command.equals("exit")) {
                 System.out.println("Quitter");
