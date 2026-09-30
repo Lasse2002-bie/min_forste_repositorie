@@ -39,4 +39,11 @@ public class Adventure {
     public int getHealth() {
         return player.getHealth();
     }
+    public EatResult eat(String itemName) {
+        return player.eat(itemName);
+    }
+    public Item findItem(String itemName) {
+        return player.findItem(itemName);
+    }
+
 }

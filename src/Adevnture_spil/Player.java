@@ -72,6 +72,14 @@ public class Player {
 
         return EatResult.EATEN;
     }
+    public Item findItem(String itemName){
+        Item item = findInventoryItem(itemName);
+
+        if (item == null) {
+            item = currentRoom.findItem(itemName);
+        }
+        return item;
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;

@@ -50,6 +50,11 @@ public class Map {
 
         Food bread = new Food("bread", "a loaf of stale bread", 10);
         Food mushroom = new Food("mushroom", "a pale glowing mushroom", -50);
+        Food energyDrink = new Food ("energydrink", "an icecold monster energy", 30);
+        Food catFood = new Food ("catfood", "an old can of stinky cat food", -20);
+        Food cheeseBurger = new Food ("burger", "a big juicy cheeseburger", 40);
+        Food pillJar = new Food ("pill", "a bottle of small round pills", 60);
+        Food tuna = new Food ("tuna", "a smelly can of tuna but sure to be worth a taste", 40);
 
 
         //Items lokation:
@@ -71,6 +76,11 @@ public class Map {
         //Food lokation:
         room1.addItem(bread);
         room5.addItem(mushroom);
+        room11.addItem(energyDrink);
+        room13.addItem(tuna);
+        room8.addItem(catFood);
+        room15.addItem(cheeseBurger);
+        room7.addItem(pillJar);
 
 
 
