@@ -51,7 +51,7 @@ public class Player {
         }
 
         return false;
-    }
+    }//Spis noget
     public EatResult eat(String shortName) {
         Item item = findInventoryItem(shortName);
 
