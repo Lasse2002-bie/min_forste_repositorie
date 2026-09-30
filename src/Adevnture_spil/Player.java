@@ -51,7 +51,27 @@ public class Player {
         }
 
         return false;
-    }//Spis noget
+
+    } public Adevnture_spil.DrinkResult drink (String shortName) {
+        Item item = findInventoryItem(shortName);
+        if (item == null) {
+            item = currentRoom.findItem(shortName);
+        }
+        if (item == null) {
+            return Adevnture_spil.DrinkResult.NOT_FOUND;
+        }
+        if (!(item instanceof Consumable)) {
+            return Adevnture_spil.DrinkResult.NOT_DRINKABLE;
+        }
+        Consumable consumable = (Consumable) item;
+        health += consumable.getHealthPoints();
+
+        inventory.remove(consumable);
+        currentRoom.removeItem(consumable);
+
+        return Adevnture_spil.DrinkResult.DRANK;
+    }
+    //Spis noget
     public EatResult eat(String shortName) {
         Item item = findInventoryItem(shortName);
 

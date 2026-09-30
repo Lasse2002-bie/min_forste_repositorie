@@ -1,5 +1,6 @@
 package Adevnture_spil;
 
+
 import java.util.Scanner;
 
 public class User_Interface {
@@ -36,6 +37,7 @@ public class User_Interface {
 
             } else if (command.equals("look")) {
                 System.out.println(adventure.look());
+
             } else if (command.equals("inventory")) {
                 System.out.println(adventure.inventory());
 
@@ -57,15 +59,10 @@ public class User_Interface {
                 }
             } else if (command.startsWith("eat ")) {
                 String itemName = command.substring(4);
-
                 Item item = adventure.findItem(itemName);
-
                 int healthBefore = adventure.getHealth();
-
                 EatResult result = adventure.eat(itemName);
-
                 int healthAfter = adventure.getHealth();
-
                 if (result == EatResult.NOT_FOUND) {
                     System.out.println("There is nothing like " + itemName + " to eat around here");
 
@@ -84,8 +81,31 @@ public class User_Interface {
                         System.out.println("You eat " + item.getLongName() + " .");
                     }
                 }
+                } else if (command.startsWith("drink ")) {
+                    String itemName = command.substring(6);
+                    Item item = adventure.findItem(itemName);
+                    int healthBefore = adventure.getHealth();
+                    DrinkResult result = adventure.drink(itemName);
+                    int healthAfter = adventure.getHealth();
+
+                    if (result == DrinkResult.NOT_FOUND) {
+                        System.out.println("There is nothing like " + itemName + " to drink around here");
+                    } else if (result == DrinkResult.NOT_DRINKABLE) {
+                        System.out.println("You cannot drink " + item.getLongName());
+                    } else if (result == DrinkResult.DRANK) {
+                        if (healthAfter > healthBefore) {
+                            System.out.println("You drink " + item.getLongName() + " and feel a little better");
+
+                        } else if (healthAfter < healthBefore) {
+                            System.out.println("You drink " + item.getLongName() + " and feel a little worse");
+
+                        } else {
+                            System.out.println("You drink " + item.getLongName());
+                        }
+                    }
+
                 } else if (command.equals("help")) {
-                    System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health");
+                    System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health, drink");
 
                 } else if (command.equals("exit")) {
                     System.out.println("Quitter");

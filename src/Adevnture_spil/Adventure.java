@@ -42,6 +42,9 @@ public class Adventure {
     public EatResult eat(String itemName) {
         return player.eat(itemName);
     }
+    public Adevnture_spil.DrinkResult drink(String itemName) {
+        return player.drink(itemName);
+    }
     public Item findItem(String itemName) {
         return player.findItem(itemName);
     }

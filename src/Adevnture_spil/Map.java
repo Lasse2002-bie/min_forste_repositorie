@@ -50,11 +50,16 @@ public class Map {
 
         Food bread = new Food("bread", "a loaf of stale bread", 10);
         Food mushroom = new Food("mushroom", "a pale glowing mushroom", -50);
-        Food energyDrink = new Food ("energydrink", "an icecold monster energy", 30);
-        Food catFood = new Food ("catfood", "an old can of stinky cat food", -20);
+        Food catFood = new Food ("cat food", "an old can of stinky cat food", -20);
         Food cheeseBurger = new Food ("burger", "a big juicy cheeseburger", 40);
-        Food pillJar = new Food ("pill", "a bottle of small round pills", 60);
+        Food pillJar = new Food ("pills", "a bottle of small round pills", 60);
         Food tuna = new Food ("tuna", "a smelly can of tuna but sure to be worth a taste", 40);
+        Food rawChicken = new Food ("raw chicken", "a stinky raw piece of chicken", -70);
+
+        Consumable dansevand = new Consumable("dansevand", "a tasty liquid of cucumber and ginger", 30);
+        Consumable poison = new Consumable("poison", "a glass bottle with a skull on it", -50);
+        Consumable energyDrink = new Consumable("energydrink", "a tin can with faxe kondi booster", 30);
+        Consumable oatMilk = new Consumable("milk", "a bottle of oat milk, little out of date", 10);
 
 
         //Items lokation:
@@ -81,9 +86,13 @@ public class Map {
         room8.addItem(catFood);
         room15.addItem(cheeseBurger);
         room7.addItem(pillJar);
+        room4.addItem(rawChicken);
 
-
-
+        //Consumable lokation:
+        room4.addItem(energyDrink);
+        room9.addItem(oatMilk);
+        room12.addItem(poison);
+        room10.addItem(dansevand);
 
         //Rooms forbindelser
         room1.setEast(room2);
