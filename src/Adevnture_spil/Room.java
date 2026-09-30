@@ -83,7 +83,7 @@ public class Room {
             text += "\nItems:";
 
             for (Item item : items) {
-                text += "\n- " + item.getLongName();
+                text += "\n- " + "(" + item.getShortName() + ") " + item.getLongName();
             }
         }
         return text;
