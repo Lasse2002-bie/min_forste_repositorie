@@ -4,8 +4,8 @@ public class RangedWeapon extends Weapon{
 
     private int ammunition;
 
-    public RangedWeapon(String shortName, String longName, int damage, int ammunition) {
-        super(shortName, longName, damage);
+    public RangedWeapon(String shortName, String longName, int damage, int ammunition, boolean trickshot) {
+        super(shortName, longName, damage, trickshot);
         this.ammunition = ammunition;
     }
 
@@ -28,6 +28,4 @@ public class RangedWeapon extends Weapon{
         return ammunition + " shots left";
     }
 
-    @Override
-    public String getTrickShot
 }

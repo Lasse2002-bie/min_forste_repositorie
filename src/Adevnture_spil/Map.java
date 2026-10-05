@@ -62,8 +62,8 @@ public class Map {
         //Weapon items:
         MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
         MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
-        RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
-        RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5);
+        RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5, false);
+        RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5, true);
 
 
 
@@ -84,7 +84,6 @@ public class Map {
         //Food lokation:
         room1.addItem(bread);
         room5.addItem(mushroom);
-        room11.addItem(energyDrink);
         room13.addItem(tuna);
         room8.addItem(catFood);
         room15.addItem(cheeseBurger);
@@ -98,6 +97,7 @@ public class Map {
         room10.addItem(dansevand);
 
         //Weapons lokation:
+        room1.addItem(sniper);
         room11.addItem(hammer);
         room15.addItem(knife);
         room6.addItem(shotgun);

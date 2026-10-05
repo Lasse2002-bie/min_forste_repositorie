@@ -4,6 +4,9 @@ public enum AttackResult {
     ATTACKED,
     NO_WEAPON,
     NO_USES_LEFT,
-    CAN_TRICKSHOT,
+    TRICKSHOT_HIT,
+    TRICKSHOT_MISS,
+    CANT_TRICKSHOT
+
 
 }

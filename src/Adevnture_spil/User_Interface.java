@@ -81,12 +81,32 @@ public class User_Interface {
                     Weapon weapon = adventure.getEquippedWeapon();
                     System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
                 }
-                else if (command.equals("attack trickshot")) {
-                    AttackResult trickshot = adventure.trickshot
+
+
+
+            }
+            else if (command.equals("attack trickshot")) {
+                AttackResult trickshot = adventure.trickshot();
+
+                if (trickshot == AttackResult.NO_WEAPON) {
+                    System.out.println("You have no weapon equipped");
+                } else if (trickshot == AttackResult.NO_USES_LEFT) {
+                    System.out.println("Your weapon cannot be used anymore");
+                } else if (trickshot == AttackResult.CANT_TRICKSHOT) {
+                    System.out.println("You can't trickshot with this weapon, attack normally");
+
+                } else if (trickshot == AttackResult.TRICKSHOT_HIT) {
+                    Weapon weapon = adventure.getEquippedWeapon();
+                    int damage = weapon.getDamage() * 3;
+                    System.out.println("360 NO-SCOPE DAT HOE! You hit for " + damage + " damage. " + weapon.getUsesLeftText());
+
+                } else if (trickshot == AttackResult.TRICKSHOT_MISS) {
+                    Weapon weapon = adventure.getEquippedWeapon();
+                    System.out.println("You missed the trickshot... GG noob.. " + weapon.getUsesLeftText());
                 }
+            }
 
-
-            } else if (command.startsWith("eat ")) {
+            else if (command.startsWith("eat ")) {
                 String itemName = command.substring(4);
                 Item item = adventure.findItem(itemName);
                 int healthBefore = adventure.getHealth();

@@ -1,12 +1,14 @@
 package Adevnture_spil;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private int health;
     private Weapon equippedWeapon;
-
+    private Random random = new Random();
     //Hvor står spilleren
     public Player(Room startRoom) {
         currentRoom = startRoom;
@@ -57,7 +59,9 @@ public class Player {
 
         return false;
 
-    } public DrinkResult drink (String shortName) {
+    }
+
+    public DrinkResult drink(String shortName) {
         Item item = findInventoryItem(shortName);
         if (item == null) {
             item = currentRoom.findItem(shortName);
@@ -76,6 +80,7 @@ public class Player {
 
         return Adevnture_spil.DrinkResult.DRANK;
     }
+
     //Spis noget
     public EatResult eat(String shortName) {
         Item item = findInventoryItem(shortName);
@@ -97,6 +102,7 @@ public class Player {
 
         return EatResult.EATEN;
     }
+
     public Item findItem(String itemName) {
         Item item = findInventoryItem(itemName);
 
@@ -105,6 +111,7 @@ public class Player {
         }
         return item;
     }
+
     public EquipResult equip(String itemName) {
         Item item = findInventoryItem(itemName);
 
@@ -123,6 +130,7 @@ public class Player {
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
+
     public AttackResult attack() {
         if (equippedWeapon == null) {
             return AttackResult.NO_WEAPON;
@@ -134,14 +142,25 @@ public class Player {
         return AttackResult.ATTACKED;
 
     }
+
     public AttackResult trickshot() {
-        if(equippedWeapon==null) {
-            return AttackResult.NO_USES_LEFT;
+        if (equippedWeapon == null) {
+            return AttackResult.NO_WEAPON;
+        }
+        if (!equippedWeapon.getTrickshot()) {
+            return AttackResult.CANT_TRICKSHOT;
         }
         if (!equippedWeapon.canUse()) {
             return AttackResult.NO_USES_LEFT;
         }
-        if ()
+
+        equippedWeapon.use();
+        int chance = random.nextInt(100);
+        if (chance < 25) {
+            return AttackResult.TRICKSHOT_HIT;
+        } else {
+            return AttackResult.TRICKSHOT_MISS;
+        }
     }
 
     public Room getCurrentRoom() {
@@ -151,6 +170,7 @@ public class Player {
     public int getHealth() {
         return health;
     }
+
     //Bevæg spilleren
     public boolean move(String direction) {
         currentRoom.markTried(direction);
