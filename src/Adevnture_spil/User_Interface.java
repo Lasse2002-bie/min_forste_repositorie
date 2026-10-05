@@ -81,6 +81,11 @@ public class User_Interface {
                     Weapon weapon = adventure.getEquippedWeapon();
                     System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
                 }
+                else if (command.equals("attack trickshot")) {
+                    AttackResult trickshot = adventure.trickshot
+                }
+
+
             } else if (command.startsWith("eat ")) {
                 String itemName = command.substring(4);
                 Item item = adventure.findItem(itemName);

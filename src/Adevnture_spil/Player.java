@@ -134,6 +134,15 @@ public class Player {
         return AttackResult.ATTACKED;
 
     }
+    public AttackResult trickshot() {
+        if(equippedWeapon==null) {
+            return AttackResult.NO_USES_LEFT;
+        }
+        if (!equippedWeapon.canUse()) {
+            return AttackResult.NO_USES_LEFT;
+        }
+        if ()
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;

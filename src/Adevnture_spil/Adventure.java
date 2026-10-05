@@ -61,5 +61,8 @@ public class Adventure {
     public Weapon getEquippedWeapon() {
         return player.getEquippedWeapon();
     }
+    public AttackResult trickshot() {
+        return player.trickshot();
+    }
 
 }

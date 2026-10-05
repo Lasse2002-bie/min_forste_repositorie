@@ -63,7 +63,7 @@ public class Map {
         MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
         MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
         RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
-
+        RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5);
 
 
 
