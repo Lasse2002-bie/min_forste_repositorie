@@ -1,10 +1,6 @@
 package Adevnture_spil;
-
-
 import java.util.Scanner;
-
 public class User_Interface {
-
 
     // Scanner bruges til at læse det spilleren skriver
     private Scanner scanner = new Scanner(System.in);
@@ -104,10 +100,7 @@ public class User_Interface {
                     System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
                 }
 
-
-
-            }
-            else if (command.equals("attack trickshot")) {
+            } else if (command.equals("attack trickshot")) {
                 AttackResult trickshot = adventure.trickshot();
 
                 if (trickshot == AttackResult.NO_WEAPON) {

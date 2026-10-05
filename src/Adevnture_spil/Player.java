@@ -68,12 +68,10 @@ public class Player {
         }
 
         return false;
-
-        //Forsøger at drikke et item
-    } public DrinkResult drink (String shortName) {
     }
 
-    public DrinkResult drink(String shortName) {
+        //Forsøger at drikke et item
+        public DrinkResult drink(String shortName) {
         Item item = findInventoryItem(shortName);
 
         //Hvis det ikke er i inventory søges rummet

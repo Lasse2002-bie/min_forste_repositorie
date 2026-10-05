@@ -74,8 +74,6 @@ public class Map {
 
         // RangedWeapon får også ammunition - shotgun starter med 5 skud
         RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
-
-        RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5, false);
         RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5, true);
 
 
