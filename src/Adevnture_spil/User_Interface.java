@@ -4,10 +4,15 @@ package Adevnture_spil;
 import java.util.Scanner;
 
 public class User_Interface {
+
+
+    // Scanner bruges til at læse det spilleren skriver
     private Scanner scanner = new Scanner(System.in);
+
+    // UI kommunikerer med spillet gennem Adventure
     private Adventure adventure = new Adventure();
 
-    //Lore
+    //intro
     public void start() {
         System.out.println("Welcome to Gustav, Marcus & Lasses incredible adventure game!!");
         scanner.nextLine();
@@ -21,12 +26,18 @@ public class User_Interface {
         System.out.println("Find your missing clothes");
         System.out.println("Type 'help' to see commands");
 
-        //Fungerende kommandoer
+        //Spillet fortsætter indtil vi rammer break
         while (true) {
             System.out.print("> ");
+
+            // Gemmer spillerens kommando
             String command = scanner.nextLine();
 
+            //startsWith bruges fordi der kommer en retning efter "go "
             if (command.startsWith("go ")) {
+
+                // Fjerner "go " og gemmer kun retningen
+                // Fx "go north" bliver til "north"
                 String direction = command.substring(3);
 
                 if (adventure.go(direction)) {
@@ -41,6 +52,7 @@ public class User_Interface {
             } else if (command.equals("inventory")) {
                 System.out.println(adventure.inventory());
 
+                // Fx "take knife" -> "knife"
             } else if (command.startsWith("take ")) {
                 String itemName = command.substring(5);
 
@@ -59,9 +71,12 @@ public class User_Interface {
                 }
 
             } else if (command.startsWith("equip ")) {
+                // Fx "equip knife" -> "knife"
                 String itemName = command.substring(6);
+                // Adventure/Player returnerer resultatet af equip-forsøget
                 EquipResult result = adventure.equip(itemName);
 
+                // UI bestemmer hvilken besked spilleren skal se
                 if (result == EquipResult.NOT_FOUND) {
                     System.out.println("You don't have " + itemName + " in your inventory");
                 } else if (result == EquipResult.NOT_WEAPON) {
@@ -71,6 +86,7 @@ public class User_Interface {
                 }
 
             } else if (command.equals("attack")) {
+                // Player udfører attack og returnerer resultatet
                 AttackResult attackResult = adventure.attack();
 
                 if (attackResult == AttackResult.NO_WEAPON) {
@@ -78,12 +94,20 @@ public class User_Interface {
                 } else if (attackResult == AttackResult.NO_USES_LEFT) {
                     System.out.println("Your weapon cannot be used anymore");
                 } else if (attackResult == AttackResult.ATTACKED) {
+                    // Henter det equipped weapon som typen Weapon
                     Weapon weapon = adventure.getEquippedWeapon();
+
+
+                    // Polymorfi:
+                    // MeleeWeapon returnerer fx "swing"
+                    // RangedWeapon returnerer fx "fire"
                     System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
                 }
             } else if (command.startsWith("eat ")) {
                 String itemName = command.substring(4);
                 Item item = adventure.findItem(itemName);
+
+                // Gemmer health før vi spiser, så vi kan sammenligne bagefter
                 int healthBefore = adventure.getHealth();
                 EatResult result = adventure.eat(itemName);
                 int healthAfter = adventure.getHealth();
@@ -95,6 +119,8 @@ public class User_Interface {
                     System.out.println("You cannot eat " + item.getLongName());
 
                 } else if (result == EatResult.EATEN) {
+
+                    // Sammenligner health før og efter maden
                     if (healthAfter > healthBefore) {
                         System.out.println("You eat " + item.getLongName() + " you feel a little better ");
                     } else if (healthAfter < healthBefore) {
@@ -126,10 +152,12 @@ public class User_Interface {
                     }
                 }
             } else if (command.equals("help")) {
+                // Viser spilleren de tilgængelige kommandoer
                 System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health, drink, equip, attack");
 
             } else if (command.equals("exit")) {
                 System.out.println("Quitter");
+                // Stopper while-loopet og dermed spillet
                 break;
 
             } else if (command.equals("dansevand")) {
@@ -144,6 +172,7 @@ public class User_Interface {
 
             } else if (command.equals("health")) {
                 int health = adventure.getHealth();
+                // Viser forskellig tekst alt efter spillerens health
                 if (health >= 100) {
                     System.out.println("health " + health + "- you are in perfect health");
                 } else if (health >= 50) {
@@ -157,6 +186,7 @@ public class User_Interface {
                 }
 
             } else {
+                // Hvis ingen af de kendte commands matcher
                 System.out.println("I don't understand that command.");
             }
 

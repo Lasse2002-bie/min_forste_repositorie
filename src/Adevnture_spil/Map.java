@@ -2,18 +2,24 @@ package Adevnture_spil;
 
 public class Map {
 
+    // Gemmer det rum spilleren skal starte i
     private Room startRoom;
-// opretter mappen
+
+    //Concstructoren bygger hele mappet, når vi laver new Map()
     public Map() {
+
         buildMap();
     }
     // returnere start-rum
     public Room getStartRoom() {
+
         return startRoom;
     }
 
-        //Eksisterende rooms
+        //Opretter alle rooms, items og forbindelser i spillet
     private void buildMap() {
+
+        //Opretter alle spillets rooms
         Room room1 = new Room("Room1", "A cold and empty room with nothing but two doors");
         Room room2 = new Room("Room2", "A room with graffiti all over the walls, with big arrows pointing straight ahead to an old wooden door painted all red");
         Room room3 = new Room("Room3", "In the middle of the room sits a beautiful dining table with room for one. The candles on the table seems to be out but theres still smoke coming from them. Has someone recently been here?");
@@ -32,7 +38,7 @@ public class Map {
         Room room16 = new Room("Room16", "An abandoned office with papers scattered across the floor");
         Room room17 = new Room("Room17", "A silent room with a locked wooden chest in the middle");
 
-        //Eksisterende Items:
+        //Eksisterende almindelige Item-objekter
         Item lamp = new Item("lamp", "A shiny brass lamp");
         Item sprayCan = new Item("spraycan", "A spray can filled with red graffiti");
         Item creepyDoll = new Item("doll", "An ancient creepy doll");
@@ -46,6 +52,7 @@ public class Map {
         Item crowbar = new Item("crowbar", "A heavy metal crowbar covered in rust");
         Item note = new Item("note", "A handwritten note with a strange warning");
 
+        // Food er en speciel type Item, som påvirker health
         Food bread = new Food("bread", "a loaf of stale bread", 10);
         Food mushroom = new Food("mushroom", "a pale glowing mushroom", -50);
         Food catFood = new Food ("cat food", "an old can of stinky cat food", -20);
@@ -54,20 +61,24 @@ public class Map {
         Food tuna = new Food ("tuna", "a smelly can of tuna but sure to be worth a taste", 40);
         Food rawChicken = new Food ("raw chicken", "a stinky raw piece of chicken", -70);
 
+        // Consumable er items spilleren kan drikke (Påvirker også health)
         Consumable dansevand = new Consumable("dansevand", "a tasty liquid of cucumber and ginger", 30);
         Consumable poison = new Consumable("poison", "a glass bottle with a skull on it", -50);
         Consumable energyDrink = new Consumable("energydrink", "a tin can with faxe kondi booster", 30);
         Consumable oatMilk = new Consumable("milk", "a bottle of oat milk, little out of date", 10);
 
-        //Weapon items:
+        // Her oprettes de konkrete Weapon-subclasses
+        // Map må gerne kende forskel på MeleeWeapon og RangedWeapon
         MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
         MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
+
+        // RangedWeapon får også ammunition - shotgun starter med 5 skud
         RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
 
 
 
 
-        //Items lokation:
+        // Placering af almindelige items
         room1.addItem(lamp);
         room2.addItem(sprayCan);
         room4.addItem(creepyDoll);
@@ -84,7 +95,6 @@ public class Map {
         //Food lokation:
         room1.addItem(bread);
         room5.addItem(mushroom);
-        room11.addItem(energyDrink);
         room13.addItem(tuna);
         room8.addItem(catFood);
         room15.addItem(cheeseBurger);
@@ -102,7 +112,8 @@ public class Map {
         room15.addItem(knife);
         room6.addItem(shotgun);
 
-        //Rooms forbindelser
+        // Forbinder rummene med hinanden
+        // Fx kan spilleren gå east fra room1 til room2
         room1.setEast(room2);
         room1.setSouth(room4);
         room1.setNorth(room16);
@@ -153,6 +164,8 @@ public class Map {
         room16.setSouth(room1);
 
         room17.setNorth(room15);
+
+        //Spilleren starter i room1
         startRoom = room1;
 
     }

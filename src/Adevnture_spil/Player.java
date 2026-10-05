@@ -2,9 +2,17 @@ package Adevnture_spil;
 import java.util.ArrayList;
 
 public class Player {
+    //Spillerens rum de står i
     private Room currentRoom;
+
+    //Inventory kan indeholde alle typer Item
     private ArrayList<Item> inventory;
+
+    //Spillerens liv
     private int health;
+
+    //Gemmer equipped våben
+    //Kan både indeholde Melee og ranged
     private Weapon equippedWeapon;
 
     //Hvor står spilleren
@@ -14,12 +22,13 @@ public class Player {
         health = 100;
     }
 
-    //Hvad bærer spilleren
+    //Returnerer spillerens inventory
     public ArrayList<Item> getInventory() {
+
         return inventory;
     }
 
-    //Tag noget fra rummet
+    //Tag noget fra rummet og lægger det i inventory
     public boolean takeItem(String itemName) {
         Item item = currentRoom.findItem(itemName);
 
@@ -31,22 +40,23 @@ public class Player {
         return false;
     }
 
-    //Find noget i inventory
+    //Leder efter item i inventory ud fra shortName
     public Item findInventoryItem(String itemName) {
         for (Item item : inventory) {
             if (item.getShortName().equalsIgnoreCase(itemName)) {
                 return item;
             }
         }
+        //At vi ikke fandt noget
         return null;
     }
 
-    //Læg noget i rummet
+    //Dropper fra inventory tilbage i rummet
     public boolean dropItem(String itemName) {
         Item item = findInventoryItem(itemName);
 
         if (item != null) {
-
+            //Hvis vi dropper equipped weapon, unequipper vi det
             if (item == equippedWeapon) {
                 equippedWeapon = null;
             }
@@ -57,26 +67,31 @@ public class Player {
 
         return false;
 
+        //Forsøger at drikke et item
     } public DrinkResult drink (String shortName) {
         Item item = findInventoryItem(shortName);
+
+        //Hvis det ikke er i inventory søges rummet
         if (item == null) {
             item = currentRoom.findItem(shortName);
         }
         if (item == null) {
             return DrinkResult.NOT_FOUND;
         }
+        //Tjekker om det fundne Item er Consumable
         if (!(item instanceof Consumable)) {
             return DrinkResult.NOT_DRINKABLE;
         }
+        //Vi ved item er consumable, så vi tar det
         Consumable consumable = (Consumable) item;
         health += consumable.getHealthPoints();
-
+        //Fjerner det efter det brugt
         inventory.remove(consumable);
         currentRoom.removeItem(consumable);
 
         return Adevnture_spil.DrinkResult.DRANK;
     }
-    //Spis noget
+    //Forsøger at spise Item
     public EatResult eat(String shortName) {
         Item item = findInventoryItem(shortName);
 
@@ -85,10 +100,10 @@ public class Player {
         }
         if (item == null) {
             return EatResult.NOT_FOUND;
-        }
+        } //Tjekker om Item er food
         if (!(item instanceof Food)) {
             return EatResult.NOT_FOOD;
-        }
+        } // Caster Item til Food så vi kan bruge Food-metode
         Food food = (Food) item;
         health += food.getHealthPoints();
 
@@ -97,6 +112,7 @@ public class Player {
 
         return EatResult.EATEN;
     }
+    //Leder i inventory og efter i nuværende rum
     public Item findItem(String itemName) {
         Item item = findInventoryItem(itemName);
 
@@ -105,31 +121,44 @@ public class Player {
         }
         return item;
     }
+    //Forsøger at equip item fra inventory
     public EquipResult equip(String itemName) {
+
+        //Vi leder kun i inventory
         Item item = findInventoryItem(itemName);
 
         if (item == null) {
             return EquipResult.NOT_FOUND;
-        }
+        } //Tjekker om fundne item er Weapon
         if (!(item instanceof Weapon)) {
             return EquipResult.NOT_WEAPON;
         }
+        //Efter instanceof ved vi, at item kan bruges som weapon
         Weapon weapon = (Weapon) item;
         equippedWeapon = weapon;
 
         return EquipResult.EQUIPPED;
     }
-
+    // returnerer det våben spilleren har equipped
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
     public AttackResult attack() {
+
+        // Man kan ikke angribe uden weapon equipped
         if (equippedWeapon == null) {
             return AttackResult.NO_WEAPON;
         }
+        //Polyformi eksempel:
+        //Java bruger canUse() fra det konkrete våben
+        //MeleeWeapon -> true
+        //Ranghedweapon -> tjekker ammo
         if (!equippedWeapon.canUse()) {
             return AttackResult.NO_USES_LEFT;
         }
+        // Også polymorfi:
+        // MeleeWeapon.use() gør ingenting
+        // RangedWeapon.use() fjerner 1 ammunition
         equippedWeapon.use();
         return AttackResult.ATTACKED;
 
@@ -142,10 +171,11 @@ public class Player {
     public int getHealth() {
         return health;
     }
-    //Bevæg spilleren
+    //Bevæg spilleren i en retning
     public boolean move(String direction) {
         currentRoom.markTried(direction);
 
+        // Finder rum der ligger i den valgte retning
         Room desiredRoom = switch (direction) {
             case "north" -> currentRoom.getNorth();
             case "south" -> currentRoom.getSouth();
@@ -153,7 +183,7 @@ public class Player {
             case "west" -> currentRoom.getWest();
             default -> null;
         };
-
+        // Hvis der findes et rum i retningen flyttes spilleren
         if (desiredRoom != null) {
             currentRoom = desiredRoom;
             return true;
