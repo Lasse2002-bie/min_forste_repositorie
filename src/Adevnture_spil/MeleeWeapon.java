@@ -7,6 +7,7 @@ public class MeleeWeapon extends Weapon{
     public MeleeWeapon(String shortName, String longName, int damage) {
         //Sender værdier videre til constructor i Weapon
         super(shortName, longName, damage);
+        super(shortName, longName, damage,false);
     }
     @Override
     public boolean canUse() {

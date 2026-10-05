@@ -10,6 +10,8 @@ public class RangedWeapon extends Weapon{
         //Sender navn og damage videre til Weapon
         super(shortName, longName, damage);
         //Gemmer ammo vi sender videre når objekt laves
+    public RangedWeapon(String shortName, String longName, int damage, int ammunition, boolean trickshot) {
+        super(shortName, longName, damage, trickshot);
         this.ammunition = ammunition;
     }
 
@@ -33,4 +35,5 @@ public class RangedWeapon extends Weapon{
         //Returnere antal skud tilbage
         return ammunition + " shots left";
     }
+
 }

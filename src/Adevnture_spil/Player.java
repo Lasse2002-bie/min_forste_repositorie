@@ -1,5 +1,7 @@
 package Adevnture_spil;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     //Spillerens rum de står i
@@ -14,7 +16,7 @@ public class Player {
     //Gemmer equipped våben
     //Kan både indeholde Melee og ranged
     private Weapon equippedWeapon;
-
+    private Random random = new Random();
     //Hvor står spilleren
     public Player(Room startRoom) {
         currentRoom = startRoom;
@@ -69,6 +71,9 @@ public class Player {
 
         //Forsøger at drikke et item
     } public DrinkResult drink (String shortName) {
+    }
+
+    public DrinkResult drink(String shortName) {
         Item item = findInventoryItem(shortName);
 
         //Hvis det ikke er i inventory søges rummet
@@ -92,6 +97,8 @@ public class Player {
         return Adevnture_spil.DrinkResult.DRANK;
     }
     //Forsøger at spise Item
+
+    //Spis noget
     public EatResult eat(String shortName) {
         Item item = findInventoryItem(shortName);
 
@@ -113,6 +120,7 @@ public class Player {
         return EatResult.EATEN;
     }
     //Leder i inventory og efter i nuværende rum
+
     public Item findItem(String itemName) {
         Item item = findInventoryItem(itemName);
 
@@ -121,6 +129,7 @@ public class Player {
         }
         return item;
     }
+
     //Forsøger at equip item fra inventory
     public EquipResult equip(String itemName) {
 
@@ -143,6 +152,7 @@ public class Player {
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
+
     public AttackResult attack() {
 
         // Man kan ikke angribe uden weapon equipped
@@ -164,6 +174,26 @@ public class Player {
 
     }
 
+    public AttackResult trickshot() {
+        if (equippedWeapon == null) {
+            return AttackResult.NO_WEAPON;
+        }
+        if (!equippedWeapon.getTrickshot()) {
+            return AttackResult.CANT_TRICKSHOT;
+        }
+        if (!equippedWeapon.canUse()) {
+            return AttackResult.NO_USES_LEFT;
+        }
+
+        equippedWeapon.use();
+        int chance = random.nextInt(100);
+        if (chance < 25) {
+            return AttackResult.TRICKSHOT_HIT;
+        } else {
+            return AttackResult.TRICKSHOT_MISS;
+        }
+    }
+
     public Room getCurrentRoom() {
         return currentRoom;
     }
@@ -172,6 +202,8 @@ public class Player {
         return health;
     }
     //Bevæg spilleren i en retning
+
+    //Bevæg spilleren
     public boolean move(String direction) {
         currentRoom.markTried(direction);
 

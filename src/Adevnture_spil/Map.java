@@ -75,6 +75,8 @@ public class Map {
         // RangedWeapon får også ammunition - shotgun starter med 5 skud
         RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
 
+        RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5, false);
+        RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5, true);
 
 
 
@@ -108,6 +110,7 @@ public class Map {
         room10.addItem(dansevand);
 
         //Weapons lokation:
+        room1.addItem(sniper);
         room11.addItem(hammer);
         room15.addItem(knife);
         room6.addItem(shotgun);

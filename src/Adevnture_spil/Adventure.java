@@ -1,5 +1,6 @@
 package Adevnture_spil;
 
+import java.util.ArrayList;
 
 public class Adventure {
     //Holder styr på spilleren og spillets map
@@ -84,6 +85,9 @@ public class Adventure {
     public Weapon getEquippedWeapon() {
 
         return player.getEquippedWeapon();
+    }
+    public AttackResult trickshot() {
+        return player.trickshot();
     }
 
 }

@@ -5,6 +5,11 @@ public abstract class Weapon extends Item {
 
     //Alle weapons har damage
     private int damage;
+    private boolean trickshot;
+    public Weapon(String shortName, String longName, int damage, Boolean trickshot) {
+        super(shortName, longName);
+        this.damage = damage;
+        this.trickshot = trickshot;
 
     //Constructor subsclasses bruger med super
     public Weapon(String shortName, String longName, int damage) {
@@ -12,6 +17,7 @@ public abstract class Weapon extends Item {
         this.damage = damage; //Gemmer weapon damage
     }
     //Returner damage
+    public boolean getTrickshot() {return trickshot;}
     public int getDamage() {
         return damage;
     }
@@ -27,4 +33,6 @@ public abstract class Weapon extends Item {
 
     //Sub bestemmer tekst om uses/ammo
     public abstract String getUsesLeftText();
+
+
 }
