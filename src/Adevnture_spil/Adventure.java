@@ -26,6 +26,10 @@ public class Adventure {
 
         for (Item item : player.getInventory()) {
             text += "\n- " + item.getLongName();
+
+            if (item == player.getEquippedWeapon()) {
+                text += " (equipped)";
+            }
         }
         return text;
     }
@@ -47,6 +51,15 @@ public class Adventure {
     }
     public Item findItem(String itemName) {
         return player.findItem(itemName);
+    }
+    public EquipResult equip (String itemName) {
+        return player.equip(itemName);
+    }
+    public AttackResult attack() {
+        return player.attack();
+    }
+    public Weapon getEquippedWeapon() {
+        return player.getEquippedWeapon();
     }
 
 }

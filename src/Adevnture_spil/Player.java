@@ -5,6 +5,7 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private int health;
+    private Weapon equippedWeapon;
 
     //Hvor står spilleren
     public Player(Room startRoom) {
@@ -45,6 +46,10 @@ public class Player {
         Item item = findInventoryItem(itemName);
 
         if (item != null) {
+
+            if (item == equippedWeapon) {
+                equippedWeapon = null;
+            }
             inventory.remove(item);
             currentRoom.addItem(item);
             return true;
@@ -52,16 +57,16 @@ public class Player {
 
         return false;
 
-    } public Adevnture_spil.DrinkResult drink (String shortName) {
+    } public DrinkResult drink (String shortName) {
         Item item = findInventoryItem(shortName);
         if (item == null) {
             item = currentRoom.findItem(shortName);
         }
         if (item == null) {
-            return Adevnture_spil.DrinkResult.NOT_FOUND;
+            return DrinkResult.NOT_FOUND;
         }
         if (!(item instanceof Consumable)) {
-            return Adevnture_spil.DrinkResult.NOT_DRINKABLE;
+            return DrinkResult.NOT_DRINKABLE;
         }
         Consumable consumable = (Consumable) item;
         health += consumable.getHealthPoints();
@@ -92,13 +97,42 @@ public class Player {
 
         return EatResult.EATEN;
     }
-    public Item findItem(String itemName){
+    public Item findItem(String itemName) {
         Item item = findInventoryItem(itemName);
 
         if (item == null) {
             item = currentRoom.findItem(itemName);
         }
         return item;
+    }
+    public EquipResult equip(String itemName) {
+        Item item = findInventoryItem(itemName);
+
+        if (item == null) {
+            return EquipResult.NOT_FOUND;
+        }
+        if (!(item instanceof Weapon)) {
+            return EquipResult.NOT_WEAPON;
+        }
+        Weapon weapon = (Weapon) item;
+        equippedWeapon = weapon;
+
+        return EquipResult.EQUIPPED;
+    }
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+    public AttackResult attack() {
+        if (equippedWeapon == null) {
+            return AttackResult.NO_WEAPON;
+        }
+        if (!equippedWeapon.canUse()) {
+            return AttackResult.NO_USES_LEFT;
+        }
+        equippedWeapon.use();
+        return AttackResult.ATTACKED;
+
     }
 
     public Room getCurrentRoom() {

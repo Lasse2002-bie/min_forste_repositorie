@@ -35,14 +35,12 @@ public class Map {
         //Eksisterende Items:
         Item lamp = new Item("lamp", "A shiny brass lamp");
         Item sprayCan = new Item("spraycan", "A spray can filled with red graffiti");
-        Item butterKnife = new Item("knife", "A sharp silver knife");
         Item creepyDoll = new Item("doll", "An ancient creepy doll");
         Item lawnShear = new Item("shear", "A garden shear with three sharp blades");
         Item elevatorKey = new Item("key", "A key that seems to be for some sort of elevator");
         Item mysteryJar = new Item("jar", "A jar with a strange form of liquid");
         Item playerClothes = new Item ("clothes", "A bundle of clothes that you wore when you got drugged");
         Item flashlight = new Item("flashlight", "A weak flashlight with barely any battery left");
-        Item hammer = new Item("hammer", "A rusty hammer with a heavy wooden handle");
         Item photo = new Item("photo", "An old photograph with a face scratched out");
         Item bandage = new Item("bandage", "A dirty bandage that looks slightly used");
         Item crowbar = new Item("crowbar", "A heavy metal crowbar covered in rust");
@@ -61,18 +59,23 @@ public class Map {
         Consumable energyDrink = new Consumable("energydrink", "a tin can with faxe kondi booster", 30);
         Consumable oatMilk = new Consumable("milk", "a bottle of oat milk, little out of date", 10);
 
+        //Weapon items:
+        MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
+        MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
+        RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
+
+
+
 
         //Items lokation:
         room1.addItem(lamp);
         room2.addItem(sprayCan);
-        room3.addItem(butterKnife);
         room4.addItem(creepyDoll);
         room5.addItem(lawnShear);
         room7.addItem(elevatorKey);
         room8.addItem(mysteryJar);
         room9.addItem(playerClothes);
         room10.addItem(flashlight);
-        room11.addItem(hammer);
         room14.addItem(photo);
         room15.addItem(crowbar);
         room16.addItem(note);
@@ -93,6 +96,11 @@ public class Map {
         room9.addItem(oatMilk);
         room12.addItem(poison);
         room10.addItem(dansevand);
+
+        //Weapons lokation:
+        room11.addItem(hammer);
+        room15.addItem(knife);
+        room6.addItem(shotgun);
 
         //Rooms forbindelser
         room1.setEast(room2);

@@ -57,12 +57,37 @@ public class User_Interface {
                 } else {
                     System.out.println("There is no " + itemName + " to drop");
                 }
+
+            } else if (command.startsWith("equip ")) {
+                String itemName = command.substring(6);
+                EquipResult result = adventure.equip(itemName);
+
+                if (result == EquipResult.NOT_FOUND) {
+                    System.out.println("You don't have " + itemName + " in your inventory");
+                } else if (result == EquipResult.NOT_WEAPON) {
+                    System.out.println(itemName + " is not a weapon");
+                } else if (result == EquipResult.EQUIPPED) {
+                    System.out.println("You equipped " + itemName);
+                }
+
+            } else if (command.equals("attack")) {
+                AttackResult attackResult = adventure.attack();
+
+                if (attackResult == AttackResult.NO_WEAPON) {
+                    System.out.println("You have no weapon equipped");
+                } else if (attackResult == AttackResult.NO_USES_LEFT) {
+                    System.out.println("Your weapon cannot be used anymore");
+                } else if (attackResult == AttackResult.ATTACKED) {
+                    Weapon weapon = adventure.getEquippedWeapon();
+                    System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
+                }
             } else if (command.startsWith("eat ")) {
                 String itemName = command.substring(4);
                 Item item = adventure.findItem(itemName);
                 int healthBefore = adventure.getHealth();
                 EatResult result = adventure.eat(itemName);
                 int healthAfter = adventure.getHealth();
+
                 if (result == EatResult.NOT_FOUND) {
                     System.out.println("There is nothing like " + itemName + " to eat around here");
 
@@ -70,75 +95,71 @@ public class User_Interface {
                     System.out.println("You cannot eat " + item.getLongName());
 
                 } else if (result == EatResult.EATEN) {
-
                     if (healthAfter > healthBefore) {
                         System.out.println("You eat " + item.getLongName() + " you feel a little better ");
-
                     } else if (healthAfter < healthBefore) {
                         System.out.println("You eat " + item.getLongName() + " you feel a little worse");
-
                     } else {
-                        System.out.println("You eat " + item.getLongName() + " .");
+                        System.out.println("You eat " + item.getLongName() + ".");
                     }
                 }
-                } else if (command.startsWith("drink ")) {
-                    String itemName = command.substring(6);
-                    Item item = adventure.findItem(itemName);
-                    int healthBefore = adventure.getHealth();
-                    DrinkResult result = adventure.drink(itemName);
-                    int healthAfter = adventure.getHealth();
+            } else if (command.startsWith("drink ")) {
+                String itemName = command.substring(6);
+                Item item = adventure.findItem(itemName);
+                int healthBefore = adventure.getHealth();
+                DrinkResult result = adventure.drink(itemName);
+                int healthAfter = adventure.getHealth();
 
-                    if (result == DrinkResult.NOT_FOUND) {
-                        System.out.println("There is nothing like " + itemName + " to drink around here");
-                    } else if (result == DrinkResult.NOT_DRINKABLE) {
-                        System.out.println("You cannot drink " + item.getLongName());
-                    } else if (result == DrinkResult.DRANK) {
-                        if (healthAfter > healthBefore) {
-                            System.out.println("You drink " + item.getLongName() + " and feel a little better");
+                if (result == DrinkResult.NOT_FOUND) {
+                    System.out.println("There is nothing like " + itemName + " to drink around here");
+                } else if (result == DrinkResult.NOT_DRINKABLE) {
+                    System.out.println("You cannot drink " + item.getLongName());
+                } else if (result == DrinkResult.DRANK) {
+                    if (healthAfter > healthBefore) {
+                        System.out.println("You drink " + item.getLongName() + " and feel a little better");
 
-                        } else if (healthAfter < healthBefore) {
-                            System.out.println("You drink " + item.getLongName() + " and feel a little worse");
+                    } else if (healthAfter < healthBefore) {
+                        System.out.println("You drink " + item.getLongName() + " and feel a little worse");
 
-                        } else {
-                            System.out.println("You drink " + item.getLongName());
-                        }
-                    }
-
-                } else if (command.equals("help")) {
-                    System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health, drink");
-
-                } else if (command.equals("exit")) {
-                    System.out.println("Quitter");
-                    break;
-
-                } else if (command.equals("dansevand")) {
-                    System.out.println("Dance break!");
-
-                } else if (command.equals("jump")) {
-                    System.out.println("You jumped too high, hit your head on the ceiling and died");
-                    break;
-                } else if (command.equals("WASDdownupdownup")) {
-                    System.out.println("You have completed the game!");
-                    break;
-
-                } else if (command.equals("health")) {
-                    int health = adventure.getHealth();
-                    if (health >= 100) {
-                        System.out.println("health " + health + "- you are in perfect health");
-                    } else if (health >= 50) {
-                        System.out.println("health " + health + "- you are in  good health, but avoid fighting right now");
-                    } else if (health >= 25) {
-                        System.out.println("health " + health + "- you are wounded - find something healthy to eat");
-                    } else if (health >= 1) {
-                        System.out.println("health " + health + "- you are barely alive");
                     } else {
-                        System.out.println("health " + health + "- you should be dead");
+                        System.out.println("You drink " + item.getLongName());
                     }
+                }
+            } else if (command.equals("help")) {
+                System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health, drink, equip, attack");
 
+            } else if (command.equals("exit")) {
+                System.out.println("Quitter");
+                break;
+
+            } else if (command.equals("dansevand")) {
+                System.out.println("Dance break!");
+
+            } else if (command.equals("jump")) {
+                System.out.println("You jumped too high, hit your head on the ceiling and died");
+                break;
+            } else if (command.equals("WASDdownupdownup")) {
+                System.out.println("You have completed the game!");
+                break;
+
+            } else if (command.equals("health")) {
+                int health = adventure.getHealth();
+                if (health >= 100) {
+                    System.out.println("health " + health + "- you are in perfect health");
+                } else if (health >= 50) {
+                    System.out.println("health " + health + "- you are in  good health, but avoid fighting right now");
+                } else if (health >= 25) {
+                    System.out.println("health " + health + "- you are wounded - find something healthy to eat");
+                } else if (health >= 1) {
+                    System.out.println("health " + health + "- you are barely alive");
                 } else {
-                    System.out.println("I don't understand that command.");
+                    System.out.println("health " + health + "- you should be dead");
                 }
 
+            } else {
+                System.out.println("I don't understand that command.");
             }
+
         }
     }
+}
