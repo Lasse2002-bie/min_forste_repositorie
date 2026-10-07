@@ -72,7 +72,9 @@ public class Map {
         MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
         MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
         MeleeWeapon axe = new MeleeWeapon("Axe", "A huge metal axe", 20);
-        MeleeWeapon glassBottle = new MeleeWeapon ("glassBottle", "A broken bottle with sharp glass", 15)
+        MeleeWeapon glassBottle = new MeleeWeapon ("glassBottle", "A broken bottle with sharp glass", 15);
+        MeleeWeapon yapOfDeath = new MeleeWeapon("yap", "You have the ability to yap people to death", 1000);
+
 
 
         // RangedWeapon får også ammunition - shotgun starter med 5 skud
@@ -84,6 +86,7 @@ public class Map {
         Enemy fishMan = new Enemy("FishMan", "A huge ugly half fish half man", "An ugly fish thingy is looking straight at you", 60, axe, room4);
         Enemy shooter = new Enemy("Shooter", "A hitman in a dark trenchcoat", "An angry man is pointing a glock at you", 50, enemyGun, room2);
         Enemy kidnapper = new Enemy("Kidnapper", "The man who led you to this place", "An old looking man with a glass bottle in his hand staring you down",100, glassBottle, room5);
+        Enemy david = new Enemy("David", "David our teacher","Bro er David, prøv at snakke med ham lowkey.", 1000, yapOfDeath, room17);
 
         // Placering af almindelige items
         room1.addItem(lamp);
