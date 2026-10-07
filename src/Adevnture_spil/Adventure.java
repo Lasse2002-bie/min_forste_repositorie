@@ -81,6 +81,13 @@ public class Adventure {
 
         return player.attack();
     }
+
+    //Angriber en bestemt enemy
+    public AttackResult attack (String enemyName) {
+
+        return player.attack(enemyName);
+    }
+
     // Henter det weapon spilleren har equipped
     public Weapon getEquippedWeapon() {
 

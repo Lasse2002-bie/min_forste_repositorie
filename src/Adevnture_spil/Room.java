@@ -11,6 +11,9 @@ public class Room {
     // Fordi listen bruger Item, kan den også indeholde Food, Consumable og Weapon
     private ArrayList<Item> items;
 
+    //Liste over enemies i rummet
+    private ArrayList<Enemy> enemies;
+
     // Referencer til de rooms man kan gå til
     private Room north;
     private Room south;
@@ -27,8 +30,10 @@ public class Room {
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+
         // Opretter en tom liste til rummets items
         items = new ArrayList<>();
+        enemies = new ArrayList<>();
     }
 
     // Returnerer rummene i de forskellige retninger
@@ -111,6 +116,18 @@ public class Room {
                 text += "\n- " + "(" + item.getShortName() + ") " + item.getLongName();
             }
         }
+
+        //Hvis der er enemies i rummet vises de
+        if (!enemies.isEmpty()) {
+            text += "\nEnemies:";
+
+            for (Enemy enemy : enemies) {
+                text += "\n- (" + enemy.getShortName() + ") "
+                        + enemy.getLongName();
+
+                text += "\n  " + enemy.getDescription();
+            }
+        }
         return text;
     }
     // Tilføjer et Item til rummet
@@ -145,4 +162,32 @@ public class Room {
             // Hvis itemet ikke findes
         return null;
         }
+    // Tilføjer en enemy til rummet
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
+
+    // Fjerner en enemy fra rummet
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    //Leder efter en enemy i rummet ud fra dens shortName
+    public Enemy findEnemy (String enemyName) {
+
+        //Går igennem alle enemies i rummet
+        for (Enemy enemy : enemies) {
+
+            //Finder enemy ud fra dens shortName
+            if (enemy.getShortName().equalsIgnoreCase(enemyName)) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+
+    // Returnerer alle enemies i rummet
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
     }

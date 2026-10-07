@@ -153,23 +153,28 @@ public class Player {
 
     public AttackResult attack() {
 
-        // Man kan ikke angribe uden weapon equipped
+        // Hvis player ikke har et weapon equipped
         if (equippedWeapon == null) {
             return AttackResult.NO_WEAPON;
         }
-        //Polyformi eksempel:
-        //Java bruger canUse() fra det konkrete våben
-        //MeleeWeapon -> true
-        //Ranghedweapon -> tjekker ammo
-        if (!equippedWeapon.canUse()) {
-            return AttackResult.NO_USES_LEFT;
-        }
-        // Også polymorfi:
-        // MeleeWeapon.use() gør ingenting
-        // RangedWeapon.use() fjerner 1 ammunition
-        equippedWeapon.use();
-        return AttackResult.ATTACKED;
 
+        // Hvis der ikke er enemies i rummet
+        if (currentRoom.getEnemies().isEmpty()) {
+
+            if (!equippedWeapon.canUse()) {
+                return AttackResult.NO_USES_LEFT;
+            }
+
+            // Angriber bare den tomme luft
+            equippedWeapon.use();
+            return AttackResult.ATTACKED;
+        }
+
+        // Tager den første enemy i rummet
+        Enemy enemy = currentRoom.getEnemies().get(0);
+
+        // Bruger vores attack(String) til at angribe den
+        return attack(enemy.getShortName());
     }
 
     public AttackResult trickshot() {
@@ -199,7 +204,9 @@ public class Player {
     public int getHealth() {
         return health;
     }
-    //Bevæg spilleren i en retning
+    public void hit(int damage) {
+        health -= damage;
+    }
 
     //Bevæg spilleren
     public boolean move(String direction) {
@@ -220,5 +227,45 @@ public class Player {
         }
         return false;
     }
+    // Angriber en enemy i det rum spilleren står i
+    public AttackResult attack(String enemyName) {
 
+        // Tjekker om spilleren har et weapon equipped
+        if (equippedWeapon == null) {
+            return AttackResult.NO_WEAPON;
+        }
+
+        // Tjekker om enemy findes FØR vi bruger våbnet
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+
+        if (enemy == null) {
+            return AttackResult.NO_ENEMY;
+        }
+
+        // Tjekker om våbnet stadig kan bruges
+        if (!equippedWeapon.canUse()) {
+            return AttackResult.NO_USES_LEFT;
+        }
+
+        // Bruger våbnet - ranged mister ét skud
+        equippedWeapon.use();
+
+        // Enemy mister health svarende til weapon damage
+        enemy.hit(equippedWeapon.getDamage());
+
+        //Hvis enemy døde af attack stopper attack-sekvens
+        if (enemy.getHealth() <= 0) {
+            return AttackResult.ENEMY_DIED;
+        }
+
+        //Hvis enemy overlevede og prøver at slå tilbage
+        int enemyDamage = enemy.attack();
+
+        //Hvis enemys weapon kunne bruges
+        if (enemyDamage > 0) {
+            hit(enemyDamage);
+        }
+
+        return AttackResult.ENEMY_HIT;
+    }
 }

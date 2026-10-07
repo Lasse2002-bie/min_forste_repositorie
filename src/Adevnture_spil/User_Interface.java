@@ -83,21 +83,45 @@ public class User_Interface {
 
             } else if (command.equals("attack")) {
                 // Player udfører attack og returnerer resultatet
+
+                int healthBefore = adventure.getHealth();
+
                 AttackResult attackResult = adventure.attack();
+
+                int healthAfter = adventure.getHealth();
+
+                if (healthAfter <= 0) {
+                    System.out.println("You died! Game over.");
+                    break;
+                }
 
                 if (attackResult == AttackResult.NO_WEAPON) {
                     System.out.println("You have no weapon equipped");
+
                 } else if (attackResult == AttackResult.NO_USES_LEFT) {
                     System.out.println("Your weapon cannot be used anymore");
+
                 } else if (attackResult == AttackResult.ATTACKED) {
-                    // Henter det equipped weapon som typen Weapon
                     Weapon weapon = adventure.getEquippedWeapon();
 
+                    System.out.println("You " + weapon.getAttackVerb() + " "
+                            + weapon.getShortName() + " "
+                            + weapon.getUsesLeftText());
 
-                    // Polymorfi:
-                    // MeleeWeapon returnerer fx "swing"
-                    // RangedWeapon returnerer fx "fire"
-                    System.out.println("You " + weapon.getAttackVerb() + " " + weapon.getShortName() + " " + weapon.getUsesLeftText());
+                } else if (attackResult == AttackResult.ENEMY_HIT) {
+                    System.out.println("You attacked the enemy");
+
+                    int damageTaken = healthBefore - healthAfter;
+
+                    if (damageTaken > 0) {
+                        System.out.println("The enemy attacks you back for "
+                                + damageTaken + " damage");
+                    } else {
+                        System.out.println("The enemy tried to attack you, but could not use its weapon");
+                    }
+
+                } else if (attackResult == AttackResult.ENEMY_DIED) {
+                    System.out.println("You killed the enemy and they dropped their weapon");
                 }
 
             } else if (command.equals("attack trickshot")) {
@@ -118,6 +142,47 @@ public class User_Interface {
                 } else if (trickshot == AttackResult.TRICKSHOT_MISS) {
                     Weapon weapon = adventure.getEquippedWeapon();
                     System.out.println("You missed the trickshot... GG noob.. " + weapon.getUsesLeftText());
+                }
+            }
+            else if (command.startsWith("attack")) {
+
+                //fx Attack killer -> "killer"
+                String enemyName = command.substring(7);
+
+                int healthBefore = adventure.getHealth();
+
+                AttackResult attackResult = adventure.attack(enemyName);
+
+                int healthAfter = adventure.getHealth();
+
+                if (healthAfter <= 0) {
+                    System.out.println("You died! Game over.");
+                    break;
+                }
+
+                if (attackResult == AttackResult.NO_WEAPON) {
+                    System.out.println("You have no weapon equipped");
+                }
+                else if (attackResult == AttackResult.NO_USES_LEFT) {
+                    System.out.println("Your weapon cannot be used anymore");
+                }
+                else if (attackResult == AttackResult.NO_ENEMY) {
+                    System.out.println("There is no " + enemyName + " here");
+                }
+                else if (attackResult == AttackResult.ENEMY_HIT) {
+                    System.out.println("You attacked " + enemyName);
+
+                    int damageTaken = healthBefore - healthAfter;
+
+                    if (damageTaken > 0) {
+                        System.out.println(enemyName + " attacks you back for " + damageTaken + " damage");
+                    }
+                    else {
+                        System.out.println(enemyName + " tried to attack you, but could not use its weapon");
+                    }
+                }
+                else if (attackResult == AttackResult.ENEMY_DIED) {
+                    System.out.println("You killed " + enemyName + " and they dropped their weapon");
                 }
             }
 
@@ -147,6 +212,11 @@ public class User_Interface {
                         System.out.println("You eat " + item.getLongName() + ".");
                     }
                 }
+                if (healthAfter <= 0) {
+                    System.out.println("You died! Game over.");
+                    break;
+                }
+
             } else if (command.startsWith("drink ")) {
                 String itemName = command.substring(6);
                 Item item = adventure.findItem(itemName);
@@ -169,6 +239,11 @@ public class User_Interface {
                         System.out.println("You drink " + item.getLongName());
                     }
                 }
+                if (healthAfter <= 0) {
+                    System.out.println("You died! Game over.");
+                    break;
+                }
+
             } else if (command.equals("help")) {
                 // Viser spilleren de tilgængelige kommandoer
                 System.out.println("Commands: go north, go south, go east, go west, look, help, exit, take, drop, inventory, jump, eat, health, drink, equip, attack");

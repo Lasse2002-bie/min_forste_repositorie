@@ -7,7 +7,11 @@ public enum AttackResult {
     NO_USES_LEFT, // Våbnet kan ikke bruges mere
     TRICKSHOT_HIT,
     TRICKSHOT_MISS,
-    CANT_TRICKSHOT
+    CANT_TRICKSHOT,
 
+    //Enemy attack resultater
+    NO_ENEMY,
+    ENEMY_HIT,
+    ENEMY_DIED
 
 }

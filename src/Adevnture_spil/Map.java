@@ -71,12 +71,19 @@ public class Map {
         // Map må gerne kende forskel på MeleeWeapon og RangedWeapon
         MeleeWeapon hammer = new MeleeWeapon("hammer", "An old hammer with a wooden handle", 20);
         MeleeWeapon knife = new MeleeWeapon("knife", "A small knife with a bended blade", 30);
+        MeleeWeapon axe = new MeleeWeapon("Axe", "A huge metal axe", 20);
+        MeleeWeapon glassBottle = new MeleeWeapon ("glassBottle", "A broken bottle with sharp glass", 15)
+
 
         // RangedWeapon får også ammunition - shotgun starter med 5 skud
         RangedWeapon shotgun = new RangedWeapon("shotgun", "A pump shotgun, imagine having two", 30, 5);
         RangedWeapon sniper = new RangedWeapon("sniper", "A big sniper rifle, imagine hitting a trickshot", 30, 5, true);
+        RangedWeapon enemyGun = new RangedWeapon("pistol", "A small old pistol", 10, 1);
 
-
+        //Her oprettes enemy
+        Enemy fishMan = new Enemy("FishMan", "A huge ugly half fish half man", "An ugly fish thingy is looking straight at you", 60, axe, room4);
+        Enemy shooter = new Enemy("Shooter", "A hitman in a dark trenchcoat", "An angry man is pointing a glock at you", 50, enemyGun, room2);
+        Enemy kidnapper = new Enemy("Kidnapper", "The man who led you to this place", "An old looking man with a glass bottle in his hand staring you down",100, glassBottle, room5);
 
         // Placering af almindelige items
         room1.addItem(lamp);
@@ -112,6 +119,11 @@ public class Map {
         room11.addItem(hammer);
         room15.addItem(knife);
         room6.addItem(shotgun);
+
+        //Enemy lokation
+        room4.addEnemy(fishMan);
+        room2.addEnemy(shooter);
+        room5.addEnemy(kidnapper);
 
         // Forbinder rummene med hinanden
         // Fx kan spilleren gå east fra room1 til room2
