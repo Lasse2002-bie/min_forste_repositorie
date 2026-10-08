@@ -119,14 +119,15 @@ public class Map {
 
         //Weapons lokation:
         room1.addItem(sniper);
-        room11.addItem(hammer);
+        room2.addItem(hammer);
         room15.addItem(knife);
-        room6.addItem(shotgun);
+        room2.addItem(shotgun);
 
         //Enemy lokation
         room4.addEnemy(fishMan);
         room2.addEnemy(shooter);
         room5.addEnemy(kidnapper);
+        room17.addEnemy(david);
 
         // Forbinder rummene med hinanden
         // Fx kan spilleren gå east fra room1 til room2

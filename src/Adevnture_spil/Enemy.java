@@ -72,7 +72,7 @@ public class Enemy {
             return 0;
         }
 
-        //Bruger rangedWeapon og mister et skud
+        //Bruger enemies weapon
         weapon.use();
 
         //Returnere hvor meget damage player skal miste
