@@ -124,24 +124,50 @@ public class User_Interface {
                     System.out.println("You killed the enemy and they dropped their weapon");
                 }
 
-            } else if (command.equals("attack trickshot")) {
-                AttackResult trickshot = adventure.trickshot();
+            } else if (command.startsWith("attack trickshot")) {
+                // "attack trickshot fishman" -> "fishman"
+                // "attack trickshot" alene -> tom tekst = første enemy i rummet
+                String enemyName = command.substring(16).trim();
+
+                int healthBefore = adventure.getHealth();
+
+                AttackResult trickshot;
+                if (enemyName.isEmpty()) {
+                    trickshot = adventure.trickshot();
+                } else {
+                    trickshot = adventure.trickshot(enemyName);
+                }
+
+                int healthAfter = adventure.getHealth();
+                Weapon weapon = adventure.getEquippedWeapon();
 
                 if (trickshot == AttackResult.NO_WEAPON) {
                     System.out.println("You have no weapon equipped");
-                } else if (trickshot == AttackResult.NO_USES_LEFT) {
-                    System.out.println("Your weapon cannot be used anymore");
                 } else if (trickshot == AttackResult.CANT_TRICKSHOT) {
                     System.out.println("You can't trickshot with this weapon, attack normally");
-
+                } else if (trickshot == AttackResult.NO_ENEMY) {
+                    System.out.println("There is no " + (enemyName.isEmpty() ? "enemy" : enemyName) + " here to trickshot");
+                } else if (trickshot == AttackResult.NO_USES_LEFT) {
+                    System.out.println("Your weapon cannot be used anymore");
+                } else if (trickshot == AttackResult.ENEMY_DIED) {
+                    System.out.println("360 NO-SCOPE DAT HOE! You hit for " + weapon.getDamage() * 3
+                            + " damage and killed them. " + weapon.getUsesLeftText());
                 } else if (trickshot == AttackResult.TRICKSHOT_HIT) {
-                    Weapon weapon = adventure.getEquippedWeapon();
-                    int damage = weapon.getDamage() * 3;
-                    System.out.println("360 NO-SCOPE DAT HOE! You hit for " + damage + " damage. " + weapon.getUsesLeftText());
-
+                    System.out.println("360 NO-SCOPE DAT HOE! You hit for " + weapon.getDamage() * 3
+                            + " damage. " + weapon.getUsesLeftText());
                 } else if (trickshot == AttackResult.TRICKSHOT_MISS) {
-                    Weapon weapon = adventure.getEquippedWeapon();
                     System.out.println("You missed the trickshot... GG noob.. " + weapon.getUsesLeftText());
+                }
+
+                // Viser hvis enemy slog tilbage
+                int damageTaken = healthBefore - healthAfter;
+                if (damageTaken > 0) {
+                    System.out.println("The enemy attacks you back for " + damageTaken + " damage");
+                }
+
+                if (healthAfter <= 0) {
+                    System.out.println("You died! Game over.");
+                    break;
                 }
             }
             else if (command.startsWith("attack")) {

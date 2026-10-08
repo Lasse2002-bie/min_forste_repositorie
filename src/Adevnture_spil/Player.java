@@ -70,8 +70,8 @@ public class Player {
         return false;
     }
 
-        //Forsøger at drikke et item
-        public DrinkResult drink(String shortName) {
+    //Forsøger at drikke et item
+    public DrinkResult drink(String shortName) {
         Item item = findInventoryItem(shortName);
 
         //Hvis det ikke er i inventory søges rummet
@@ -177,12 +177,28 @@ public class Player {
         return attack(enemy.getShortName());
     }
 
+    // "attack trickshot" uden navn -> skyder på den første enemy i rummet
     public AttackResult trickshot() {
+        if (currentRoom.getEnemies().isEmpty()) {
+            return AttackResult.NO_ENEMY;
+        }
+        Enemy enemy = currentRoom.getEnemies().get(0);
+        return trickshot(enemy.getShortName());
+    }
+
+    // Trickshot mod en bestemt enemy - 25% chance for 3x damage
+    public AttackResult trickshot(String enemyName) {
         if (equippedWeapon == null) {
             return AttackResult.NO_WEAPON;
         }
         if (!equippedWeapon.getTrickshot()) {
             return AttackResult.CANT_TRICKSHOT;
+        }
+
+        // Tjekker om enemy findes FØR vi bruger et skud
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+        if (enemy == null) {
+            return AttackResult.NO_ENEMY;
         }
         if (!equippedWeapon.canUse()) {
             return AttackResult.NO_USES_LEFT;
@@ -190,10 +206,28 @@ public class Player {
 
         equippedWeapon.use();
         int chance = random.nextInt(100);
+
         if (chance < 25) {
+            // Ramt: enemy tager 3x damage
+            enemy.hit(equippedWeapon.getDamage() * 3);
+
+            if (enemy.getHealth() <= 0) {
+                return AttackResult.ENEMY_DIED;
+            }
+            enemyAttacksBack(enemy);
             return AttackResult.TRICKSHOT_HIT;
-        } else {
-            return AttackResult.TRICKSHOT_MISS;
+        }
+
+        // Miss: enemy slår stadig tilbage
+        enemyAttacksBack(enemy);
+        return AttackResult.TRICKSHOT_MISS;
+    }
+
+    // Enemy forsøger at slå tilbage
+    private void enemyAttacksBack(Enemy enemy) {
+        int enemyDamage = enemy.attack();
+        if (enemyDamage > 0) {
+            hit(enemyDamage);
         }
     }
 

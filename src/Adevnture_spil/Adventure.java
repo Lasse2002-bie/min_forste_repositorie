@@ -97,4 +97,9 @@ public class Adventure {
         return player.trickshot();
     }
 
+    // Trickshot mod en bestemt enemy
+    public AttackResult trickshot(String enemyName) {
+        return player.trickshot(enemyName);
+    }
+
 }
